@@ -8,16 +8,16 @@ Gem::Specification.new do |spec|
   spec.authors = ["Takeshi KOMIYA"]
   spec.email = ["i.tkomiya@gmail.com"]
 
-  spec.summary = "TODO: Write a short summary, because RubyGems requires one."
-  spec.description = "TODO: Write a longer description or delete this line."
-  spec.homepage = "TODO: Put your gem's website or public repo URL here."
+  spec.summary = "A RuboCop plugin to lint numbered parameters"
+  spec.description = "A RuboCop plugin to lint numbered parameters"
+  spec.homepage = "https://github.com/tk0miya/rubocop-numbered-params"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.2.0"
 
-  spec.metadata["allowed_push_host"] = "TODO: Set to your gem server 'https://example.com'"
+  spec.metadata["rubygems_mfa_required"] = "true"
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "TODO: Put your gem's public repo URL here."
-  spec.metadata["changelog_uri"] = "TODO: Put your gem's CHANGELOG.md URL here."
+  spec.metadata["source_code_uri"] = "https://github.com/tk0miya/rubocop-numbered-params"
+  spec.metadata["changelog_uri"] = "https://github.com/tk0miya/rubocop-numbered-params/blob/main/CHANGELOG.md"
   spec.metadata["default_lint_roller_plugin"] = "Rubocop::Numbered::Params::Plugin"
 
   # Specify which files should be added to the gem when it is released.

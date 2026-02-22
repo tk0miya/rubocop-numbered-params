@@ -11,7 +11,8 @@ module Rubocop
             name: "rubocop-numbered-params",
             version: VERSION,
             homepage: "https://github.com/tk0miya/rubocop-numbered-params",
-            description: "A RuboCop plugin to lint numbered parameters"
+            description: "A RuboCop plugin that recommends using numbered parameters (_1, _2) " \
+                         "instead of named block arguments in short blocks."
           )
         end
 

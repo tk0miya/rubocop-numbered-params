@@ -1,1 +1,5 @@
-# Default configuration for rubocop-numbered-params
+Style/PreferNumberedParameter:
+  Description: 'Prefer numbered parameters (`_1`, `_2`) for single-line blocks.'
+  Enabled: true
+  VersionAdded: '1.0'
+  MaxArguments: 1

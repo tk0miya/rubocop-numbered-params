@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+require "rubocop"
 require "rubocop/numbered/params"
+require "rubocop/rspec/support"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

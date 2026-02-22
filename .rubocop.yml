@@ -11,6 +11,9 @@ Metrics/BlockLength:
     - "spec/**/*"
     - "*.gemspec"
 
+RSpec/ExampleLength:
+  Max: 20
+
 RSpec/NestedGroups:
   Max: 6
 

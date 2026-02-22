@@ -8,10 +8,14 @@ RSpec.describe RuboCop::Cop::Style::PreferNumberedParameter, :config do
 
   context "with single-line block" do
     context "with method call" do
-      it "registers an offense" do
+      it "registers an offense and corrects" do
         expect_offense(<<~RUBY)
           users.map { |user| user.name }
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use numbered parameters (`_1`, `_2`, ...) instead of named block arguments for single-line blocks.
+        RUBY
+
+        expect_correction(<<~RUBY)
+          users.map { _1.name }
         RUBY
       end
     end
@@ -57,10 +61,14 @@ RSpec.describe RuboCop::Cop::Style::PreferNumberedParameter, :config do
     end
 
     context "with nested blocks" do
-      it "registers an offense on the inner block" do
+      it "registers an offense on the inner block and corrects" do
         expect_offense(<<~RUBY)
           items.select { |item| item.map { |x| x.name } }
                                 ^^^^^^^^^^^^^^^^^^^^^^^ Use numbered parameters (`_1`, `_2`, ...) instead of named block arguments for single-line blocks.
+        RUBY
+
+        expect_correction(<<~RUBY)
+          items.select { |item| item.map { _1.name } }
         RUBY
       end
 
@@ -85,10 +93,14 @@ RSpec.describe RuboCop::Cop::Style::PreferNumberedParameter, :config do
       let(:max_arguments) { 2 }
 
       context "with two arguments" do
-        it "registers an offense" do
+        it "registers an offense and corrects" do
           expect_offense(<<~RUBY)
             hash.each { |key, value| "\#{key}: \#{value}" }
             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use numbered parameters (`_1`, `_2`, ...) instead of named block arguments for single-line blocks.
+          RUBY
+
+          expect_correction(<<~RUBY)
+            hash.each { "\#{_1}: \#{_2}" }
           RUBY
         end
       end

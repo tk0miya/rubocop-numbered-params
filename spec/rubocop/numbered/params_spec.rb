@@ -2,6 +2,6 @@
 
 RSpec.describe Rubocop::Numbered::Params do
   it "has a version number" do
-    expect(Rubocop::Numbered::Params::VERSION).not_to be nil
+    expect(Rubocop::Numbered::Params::VERSION).not_to be_nil
   end
 end

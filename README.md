@@ -1,28 +1,94 @@
-# Rubocop::Numbered::Params
+# rubocop-numbered-params
 
-TODO: Delete this and the text below, and describe your gem
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/rubocop/numbered/params`. To experiment with that code, run `bin/console` for an interactive prompt.
+A RuboCop plugin that recommends using numbered parameters (`_1`, `_2`, ...) instead of named block arguments in single-line blocks.
 
 ## Installation
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
-
-Install the gem and add to the application's Gemfile by executing:
+Add the gem to your application's Gemfile:
 
 ```bash
-bundle add UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+bundle add rubocop-numbered-params
 ```
 
-If bundler is not being used to manage dependencies, install the gem by executing:
+Or install it directly:
 
 ```bash
-gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+gem install rubocop-numbered-params
 ```
 
-## Usage
+Then add it to your `.rubocop.yml`:
 
-TODO: Write usage instructions here
+```yaml
+plugins:
+  - rubocop-numbered-params
+```
+
+## Cops
+
+### Style/PreferNumberedParameter
+
+Recommends using numbered parameters (`_1`, `_2`, ...) instead of named block arguments in single-line blocks. This cop supports autocorrection.
+
+**Bad:**
+
+```ruby
+users.map { |user| user.name }
+items.select { |item| item.active? }
+```
+
+**Good:**
+
+```ruby
+users.map { _1.name }
+items.select { _1.active? }
+```
+
+Multi-line blocks are not targeted:
+
+```ruby
+# good - multi-line block (not targeted)
+users.map do |user|
+  user.name
+end
+```
+
+#### Configuration
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `MaxArguments` | `1` | Maximum number of block arguments to target. Blocks with more arguments than this value are ignored. |
+
+Example with `MaxArguments: 2`:
+
+```yaml
+Style/PreferNumberedParameter:
+  MaxArguments: 2
+```
+
+```ruby
+# bad
+hash.each { |key, value| "#{key}: #{value}" }
+
+# good
+hash.each { "#{_1}: #{_2}" }
+```
+
+#### Exceptions
+
+The cop does not register an offense in the following cases:
+
+- Multi-line blocks
+- Blocks with an empty body
+- Blocks with destructuring arguments: `|(key, value)|`
+- Blocks with splat arguments: `|*args|`
+- Blocks with block arguments: `|&block|`
+- Blocks with shadow variables: `|item; temp|`
+- Outer blocks that contain inner blocks (the inner block is checked separately)
+
+## Requirements
+
+- Ruby >= 3.2.0
+- RuboCop >= 1.72.1
 
 ## Development
 
@@ -32,7 +98,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/rubocop-numbered-params. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/rubocop-numbered-params/blob/main/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/tk0miya/rubocop-numbered-params. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/tk0miya/rubocop-numbered-params/blob/main/CODE_OF_CONDUCT.md).
 
 ## License
 
@@ -40,4 +106,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the Rubocop::Numbered::Params project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/rubocop-numbered-params/blob/main/CODE_OF_CONDUCT.md).
+Everyone interacting in the rubocop-numbered-params project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/tk0miya/rubocop-numbered-params/blob/main/CODE_OF_CONDUCT.md).

@@ -9,4 +9,16 @@ require "rubocop/rake_task"
 
 RuboCop::RakeTask.new
 
-task default: %i[spec rubocop]
+namespace :rbs do
+  desc "Install RBS collection"
+  task :collection do
+    sh "rbs collection install --frozen"
+  end
+end
+
+desc "Run Steep type checker"
+task steep: "rbs:collection" do
+  sh "steep check"
+end
+
+task default: %i[spec rubocop steep]

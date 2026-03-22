@@ -1,0 +1,9 @@
+# Generated from lib/rubocop/numbered/params/version.rb with RBS::Inline
+
+module Rubocop
+  module Numbered
+    module Params
+      VERSION: ::String
+    end
+  end
+end

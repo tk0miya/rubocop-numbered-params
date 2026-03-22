@@ -1,0 +1,56 @@
+# Generated from lib/rubocop/cop/style/prefer_numbered_parameter.rb with RBS::Inline
+
+module RuboCop
+  module Cop
+    module Style
+      # Recommends using numbered parameters (`_1`, `_2`) instead of
+      # named block arguments in single-line blocks with few arguments.
+      #
+      # @example
+      #   # bad
+      #   users.map { |user| user.name }
+      #   items.select { |item| item.active? }
+      #
+      #   # good
+      #   users.map { _1.name }
+      #   items.select { _1.active? }
+      #
+      #   # good - multi-line block (not targeted)
+      #   users.map do |user|
+      #     user.name
+      #   end
+      #
+      # @example MaxArguments: 2
+      #   # bad
+      #   hash.each { |key, value| "#{key}: #{value}" }
+      #
+      #   # good
+      #   hash.each { "#{_1}: #{_2}" }
+      class PreferNumberedParameter < Base
+        extend AutoCorrector
+
+        MSG: ::String
+
+        # @rbs node: RuboCop::AST::BlockNode
+        def on_block: (RuboCop::AST::BlockNode node) -> void
+
+        private
+
+        # @rbs corrector: RuboCop::Cop::Corrector
+        # @rbs node: RuboCop::AST::BlockNode
+        def autocorrect: (RuboCop::Cop::Corrector corrector, RuboCop::AST::BlockNode node) -> void
+
+        # @rbs node: RuboCop::AST::Node?
+        def collect_lvar_nodes: (RuboCop::AST::Node? node) -> Array[RuboCop::AST::Node]
+
+        def max_arguments: () -> Integer
+
+        # @rbs node: RuboCop::AST::BlockNode
+        def special_arguments?: (RuboCop::AST::BlockNode node) -> bool
+
+        # @rbs node: RuboCop::AST::Node?
+        def contains_inner_block?: (RuboCop::AST::Node? node) -> bool
+      end
+    end
+  end
+end

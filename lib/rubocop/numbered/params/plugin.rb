@@ -6,6 +6,7 @@ module Rubocop
   module Numbered
     module Params
       class Plugin < LintRoller::Plugin
+        # @rbs override
         def about
           LintRoller::About.new(
             name: "rubocop-numbered-params",
@@ -16,15 +17,17 @@ module Rubocop
           )
         end
 
+        # @rbs override
         def supported?(context)
           context.engine == :rubocop
         end
 
+        # @rbs override
         def rules(_context)
           LintRoller::Rules.new(
             type: :path,
             config_format: :rubocop,
-            value: Pathname.new(__dir__).join("../../../../config/default.yml")
+            value: Pathname.new(__dir__ || "").join("../../../../config/default.yml")
           )
         end
       end

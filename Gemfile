@@ -7,7 +7,7 @@ gemspec
 
 gem "irb"
 gem "rake", "~> 13.4"
-gem "rbs-inline", "~> 0.13.0"
+gem "rbs-inline", "~> 0.14.0"
 gem "rspec", "~> 3.0"
 gem "rubocop", "~> 1.86"
 gem "rubocop-rake"

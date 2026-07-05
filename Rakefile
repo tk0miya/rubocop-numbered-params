@@ -23,6 +23,11 @@ namespace :rbs do
   task :generate do
     sh "rbs-inline", "--opt-out", "--output=sig", "lib"
   end
+
+  desc "Validate RBS files"
+  task validate: "rbs:install" do
+    sh "bundle exec rbs -Isig validate"
+  end
 end
 
 desc "Run Steep type checker"

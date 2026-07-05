@@ -1,6 +1,8 @@
+# NOTE: Rules are sorted in ASCII order.
+
 AllCops:
-  TargetRubyVersion: 3.2
   NewCops: enable
+  TargetRubyVersion: 3.2
 
 plugins:
   - rubocop-numbered-params
@@ -8,28 +10,67 @@ plugins:
   - rubocop-rbs_inline
   - rubocop-rspec
 
+# Layout
 Layout/LeadingCommentSpace:
   AllowRBSInlineAnnotation: true
+  AllowSteepAnnotation: true
+
+Layout/LineLength:
+  Max: 120
+
+# Metrics
+Metrics/AbcSize:
+  Max: 20
 
 Metrics/BlockLength:
   Exclude:
     - "spec/**/*"
     - "*.gemspec"
 
+Metrics/ClassLength:
+  Max: 200
+
+Metrics/MethodLength:
+  Max: 30
+
+# RSpec
 RSpec/ExampleLength:
-  Max: 20
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Max: 10
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/NamedSubject:
+  Enabled: false
 
 RSpec/NestedGroups:
   Max: 6
 
-Style/Documentation:
-  Enabled: false
-
+# RbsInline
 Style/RbsInline/MissingTypeAnnotation:
+  EnforcedStyle: doc_style_and_return_annotation
+
+Style/RbsInline/RedundantTypeAnnotation:
   EnforcedStyle: doc_style_and_return_annotation
 
 Style/RbsInline/RequireRbsInlineComment:
   EnforcedStyle: never
+
+# Style
+Style/AccessorGrouping:
+  Enabled: false
+
+Style/CommentedKeyword:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/HashSyntax:
+  EnforcedShorthandSyntax: always
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes

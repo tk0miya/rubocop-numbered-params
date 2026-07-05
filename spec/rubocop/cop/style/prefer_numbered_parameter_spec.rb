@@ -152,4 +152,26 @@ RSpec.describe RuboCop::Cop::Style::PreferNumberedParameter, :config do
       RUBY
     end
   end
+
+  context "with lambda literal" do
+    it "does not register an offense" do
+      expect_no_offenses(<<~RUBY)
+        scope :blue, ->(_obj) { where(colour: "blue") }
+      RUBY
+    end
+
+    it "does not register an offense even when the argument is used" do
+      expect_no_offenses(<<~RUBY)
+        add = ->(x) { x + 1 }
+      RUBY
+    end
+  end
+
+  context "with lambda method" do
+    it "does not register an offense" do
+      expect_no_offenses(<<~RUBY)
+        add = lambda { |x| x + 1 }
+      RUBY
+    end
+  end
 end

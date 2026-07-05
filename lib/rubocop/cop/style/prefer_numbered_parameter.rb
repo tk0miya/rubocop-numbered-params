@@ -34,8 +34,9 @@ module RuboCop
               "for single-line blocks."
 
         # @rbs node: RuboCop::AST::BlockNode
-        def on_block(node) #: void
+        def on_block(node) #: void # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
           return unless node.single_line?
+          return if node.lambda?
           return if node.arguments.argument_list.empty?
           return if node.arguments.argument_list.count > max_arguments
           return if node.body.nil?

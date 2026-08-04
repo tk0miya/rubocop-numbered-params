@@ -11,7 +11,7 @@ RuboCop::RakeTask.new
 
 task default: :ci
 
-task ci: %i[rubocop spec steep]
+task ci: %i[rubocop spec steep rbs:validate]
 
 namespace :rbs do
   desc "Install RBS signatures"

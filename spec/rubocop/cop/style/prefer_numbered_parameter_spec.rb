@@ -61,15 +61,17 @@ RSpec.describe RuboCop::Cop::Style::PreferNumberedParameter, :config do
     end
 
     context "with nested blocks" do
-      it "registers an offense on the inner block and corrects" do
-        expect_offense(<<~RUBY)
-          items.select { |item| item.map { |x| x.name } }
-                                ^^^^^^^^^^^^^^^^^^^^^^^ Use numbered parameters (`_1`, `_2`, ...) instead of named block arguments for single-line blocks.
-        RUBY
+      context "when inner block uses named arguments" do
+        it "registers an offense on the inner block and corrects" do
+          expect_offense(<<~RUBY)
+            items.select { |item| item.map { |x| x.name } }
+                                  ^^^^^^^^^^^^^^^^^^^^^^^ Use numbered parameters (`_1`, `_2`, ...) instead of named block arguments for single-line blocks.
+          RUBY
 
-        expect_correction(<<~RUBY)
-          items.select { |item| item.map { _1.name } }
-        RUBY
+          expect_correction(<<~RUBY)
+            items.select { |item| item.map { _1.name } }
+          RUBY
+        end
       end
 
       context "when inner block uses numbered parameters" do
@@ -154,16 +156,20 @@ RSpec.describe RuboCop::Cop::Style::PreferNumberedParameter, :config do
   end
 
   context "with lambda literal" do
-    it "does not register an offense" do
-      expect_no_offenses(<<~RUBY)
-        scope :blue, ->(_obj) { where(colour: "blue") }
-      RUBY
+    context "when the argument is unused" do
+      it "does not register an offense" do
+        expect_no_offenses(<<~RUBY)
+          scope :blue, ->(_obj) { where(colour: "blue") }
+        RUBY
+      end
     end
 
-    it "does not register an offense even when the argument is used" do
-      expect_no_offenses(<<~RUBY)
-        add = ->(x) { x + 1 }
-      RUBY
+    context "when the argument is used" do
+      it "does not register an offense" do
+        expect_no_offenses(<<~RUBY)
+          add = ->(x) { x + 1 }
+        RUBY
+      end
     end
   end
 
